@@ -34,6 +34,7 @@ public class LibraryManagement {
             System.out.println("2 List of Books");
             System.out.println("3 Issue a Book");
             System.out.println("4 Delete a Book");
+            System.out.println("5 Return Book");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
@@ -53,9 +54,8 @@ public class LibraryManagement {
                 System.out.println("List of Books:");
                 if (bookList.isEmpty()) {
                     System.out.println("No books available.");
-                    
-                }
-                else{
+
+                } else {
                     System.out.println("Books available in the library:");
                 }
                 for (AddBook book : bookList) {
@@ -69,28 +69,26 @@ public class LibraryManagement {
                 System.out.println("Enter the id of book to Issue");
                 String id = scanner.nextLine();
                 boolean found = false;
-                for(AddBook book : bookList){
-                    if(book.Id.equals(id)){
+                for (AddBook book : bookList) {
+                    if (book.Id.equals(id)) {
                         book.isIssued = true;
                         System.out.println("Book with ID: " + id + " has been issued.");
                         book.displayBookDetails();
                         found = true;
-                    }
-                    else{
+                    } else {
                         System.out.println("Book not found with ID: " + id);
                         found = false;
                     }
-                    
+
                 }
-            }
-            else if(choice == 4){
+            } else if (choice == 4) {
                 System.out.println("Enter the id of book you want to delete");
                 String id = scanner.nextLine();
                 boolean found = false;
                 Iterator<AddBook> iterator = bookList.iterator();
-                while(iterator.hasNext()){
+                while (iterator.hasNext()) {
                     AddBook book = iterator.next();
-                    if(book.Id.equals(id)){
+                    if (book.Id.equals(id)) {
                         iterator.remove(); // Remove the book using iterator
                         System.out.println("Book with ID: " + id + " has been deleted successfully.");
                         found = true;
@@ -98,8 +96,28 @@ public class LibraryManagement {
                     }
                 }
 
+            } else if (choice == 5) {
+                System.out.println("Enter the id of book to return");
+                String id = scanner.nextLine();
+                boolean found = false;
+                for (AddBook book : bookList) {
+                    if (book.Id.equals(id)) {
+                        if (book.isIssued) {
+                            book.isIssued = false;
+                            found = true;
+                            book.displayBookDetails();
+                            System.out.println(id + "Book Returned Successfully");
+                        } else {
+                            System.out.println("Book with ID: " + id + " was not issued.");
+                        }
+                        found = false;
+                        break;
+
+                    }
+                }
             }
-            else if(choice < 1 || choice > 4) {
+
+            else if (choice < 1 || choice > 5) {
                 System.out.println("Invalid Choice!! ");
             }
 
