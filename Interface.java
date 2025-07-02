@@ -8,9 +8,9 @@ class Horse implements Animal{
     }
 }
 
-Public Interface{
+public class Interface{
     public static void main(String[]args){
         Horse horse = new Horse();
-        horse.Walks();
+        horse.walks();
     }
 }
